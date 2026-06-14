@@ -19,6 +19,10 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            touch-action: none; /* 阻止行動端瀏覽器不必要的下拉重整與橡皮筋回彈 */
         }
 
         /* Fixed Background Canvas */
@@ -39,7 +43,7 @@
             -webkit-backdrop-filter: blur(16px);
             border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 28px;
-            padding: 50px 30px;
+            padding: 40px 30px;
             width: calc(100% - 32px);
             max-width: 400px;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
@@ -86,6 +90,26 @@
             border: 1px solid rgba(255, 255, 255, 0.15);
         }
 
+        /* 即時時間觀測器樣式 */
+        .live-clock-wrapper {
+            font-size: 0.85rem;
+            font-family: "Courier New", Courier, monospace; /* 使用等寬字型，防止數字跳動 */
+            color: #8c94f4;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            opacity: 0.8;
+        }
+
+        #live-clock {
+            font-weight: 600;
+        }
+
+        #live-date {
+            font-size: 0.7rem;
+            color: #707080;
+            margin-top: 2px;
+        }
+
         /* Avatar Elements */
         .avatar-wrapper {
             position: relative;
@@ -115,16 +139,28 @@
         .name {
             font-size: 2rem;
             font-weight: 600;
-            margin: 0 0 8px 0;
+            margin: 0 0 4px 0;
             letter-spacing: 1px;
         }
 
         .bio {
             font-size: 0.95rem;
             color: #a0a0b0;
-            margin: 0 0 25px 0;
+            margin: 0 0 20px 0;
             font-weight: 300;
             line-height: 1.5;
+        }
+
+        /* 個人格言樣式 */
+        .motto {
+            font-size: 0.88rem;
+            color: #dcdcdc;
+            font-style: italic;
+            margin: 0 0 25px 0;
+            line-height: 1.6;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+            padding: 0 10px;
         }
 
         /* Pill Capsules */
@@ -286,12 +322,23 @@
 
     <!-- UI Block 1: Profile Gateway -->
     <div class="symmetric-card">
+        <!-- 頂部極簡時間觀測 -->
+        <div class="live-clock-wrapper">
+            <i class="far fa-clock"></i> <span id="live-clock">00:00:00</span>
+            <div id="live-date">2026 / 01 / 01 SUN</div>
+        </div>
+
         <div class="avatar-wrapper">
             <img src="avatar.jpg" alt="Avatar" class="avatar">
         </div>
         
         <h1 class="name">林勝崴 Albert</h1>
         <p class="bio">Student / Radio / Railway</p>
+        
+        <!-- 個人格言區（可自由更換文字） -->
+        <p class="motto">
+            「 保持信號通暢，在未知的頻率裡捕捉流光。 」
+        </p>
         
         <div class="tag-capsules">
             <div class="capsule callsign">
@@ -385,7 +432,7 @@
                 card.classList.add('hidden-state');
                 setTimeout(() => {
                     board.classList.add('active');
-                }, 150); // Small delay step for continuous overlap
+                }, 150); 
             } else {
                 board.classList.remove('active');
                 setTimeout(() => {
@@ -487,27 +534,30 @@
             }
         }
 
+        // 修正後的連線邏輯：下雨天粒子間不連線，但滑鼠互動保持，且優化了迴圈效能
         function connect() {
-            if (currentEnv.isRainy) return;
             for (let a = 0; a < particlesArray.length; a++) {
-                for (let b = a; b < particlesArray.length; b++) {
-                    let distance = ((particlesArray[a].x - particlesArray[b].x) * (particlesArray[a].x - particlesArray[b].x)) + 
-                                   ((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y));
-                    
-                    if (distance < (canvas.width / 8) * (canvas.height / 8)) {
-                        ctx.strokeStyle = 'rgba(200, 200, 210, 0.06)';
-                        ctx.lineWidth = 0.8;
-                        ctx.beginPath();
-                        ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
-                        ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
-                        ctx.stroke();
+                if (!currentEnv.isRainy) {
+                    for (let b = a + 1; b < particlesArray.length; b++) {
+                        let distance = ((particlesArray[a].x - particlesArray[b].x) * (particlesArray[a].x - particlesArray[b].x)) + 
+                                       ((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y));
+                        
+                        if (distance < (canvas.width / 8) * (canvas.height / 8)) {
+                            ctx.strokeStyle = 'rgba(200, 200, 210, 0.06)';
+                            ctx.lineWidth = 0.8;
+                            ctx.beginPath();
+                            ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
+                            ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
+                            ctx.stroke();
+                        }
                     }
                 }
+                
                 if (mouse.x != null) {
                     let mouseDistance = ((particlesArray[a].x - mouse.x) * (particlesArray[a].x - mouse.x)) + 
                                         ((particlesArray[a].y - mouse.y) * (particlesArray[a].y - mouse.y));
                     if (mouseDistance < mouse.radius * mouse.radius) {
-                        ctx.strokeStyle = 'rgba(200, 200, 210, 0.25)';
+                        ctx.strokeStyle = currentEnv.isRainy ? 'rgba(162, 170, 255, 0.2)' : 'rgba(200, 200, 210, 0.25)';
                         ctx.lineWidth = 1;
                         ctx.beginPath();
                         ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
@@ -530,7 +580,29 @@
             init();
         });
 
-        init(); animate();
+        // 即時時間自動更新驅動核心
+        function updateLiveClock() {
+            const now = new Date();
+            
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            document.getElementById('live-clock').innerText = `${hours}:${minutes}:${seconds}`;
+            
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const date = String(now.getDate()).padStart(2, '0');
+            const days = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+            const dayOfWeek = days[now.getDay()];
+            
+            document.getElementById('live-date').innerText = `${year} / ${month} / ${date} ${dayOfWeek}`;
+        }
+
+        setInterval(updateLiveClock, 1000);
+        updateLiveClock();
+
+        init(); 
+        animate();
     </script>
 </body>
 </html>
