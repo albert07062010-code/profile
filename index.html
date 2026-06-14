@@ -335,9 +335,9 @@
         <h1 class="name">林勝崴 Albert</h1>
         <p class="bio">Student / Radio / Railway</p>
         
-        <!-- 個人格言區（可自由更換文字） -->
+        
         <p class="motto">
-            「 保持信號通暢，在未知的頻率裡捕捉流光。 」
+            給我一個槓桿，我可以虧掉一個地球。
         </p>
         
         <div class="tag-capsules">
@@ -406,15 +406,11 @@
         canvas.height = window.innerHeight;
 
         let particlesArray = [];
-        let mouse = { x: null, y: null, radius: 100 };
 
         let currentEnv = {
             isRainy: false,
             windSpeed: 1.5
         };
-
-        window.addEventListener('mousemove', function(event) { mouse.x = event.x; mouse.y = event.y; });
-        window.addEventListener('mouseout', function() { mouse.x = undefined; mouse.y = undefined; });
 
         window.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
@@ -423,7 +419,7 @@
             fetchWeatherMetrics();
         });
 
-        // Matrix interface toggle control logic
+        // Interface toggle logic
         function switchInterface(toWeather) {
             const card = document.querySelector('.symmetric-card');
             const board = document.getElementById('weatherBoard');
@@ -534,34 +530,20 @@
             }
         }
 
-        // 修正後的連線邏輯：下雨天粒子間不連線，但滑鼠互動保持，且優化了迴圈效能
+        // 僅保留粒子間的微弱網格連線（晴天時），已徹底移除了與滑鼠有關的互動線條
         function connect() {
+            if (currentEnv.isRainy) return;
             for (let a = 0; a < particlesArray.length; a++) {
-                if (!currentEnv.isRainy) {
-                    for (let b = a + 1; b < particlesArray.length; b++) {
-                        let distance = ((particlesArray[a].x - particlesArray[b].x) * (particlesArray[a].x - particlesArray[b].x)) + 
-                                       ((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y));
-                        
-                        if (distance < (canvas.width / 8) * (canvas.height / 8)) {
-                            ctx.strokeStyle = 'rgba(200, 200, 210, 0.06)';
-                            ctx.lineWidth = 0.8;
-                            ctx.beginPath();
-                            ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
-                            ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
-                            ctx.stroke();
-                        }
-                    }
-                }
-                
-                if (mouse.x != null) {
-                    let mouseDistance = ((particlesArray[a].x - mouse.x) * (particlesArray[a].x - mouse.x)) + 
-                                        ((particlesArray[a].y - mouse.y) * (particlesArray[a].y - mouse.y));
-                    if (mouseDistance < mouse.radius * mouse.radius) {
-                        ctx.strokeStyle = currentEnv.isRainy ? 'rgba(162, 170, 255, 0.2)' : 'rgba(200, 200, 210, 0.25)';
-                        ctx.lineWidth = 1;
+                for (let b = a + 1; b < particlesArray.length; b++) {
+                    let distance = ((particlesArray[a].x - particlesArray[b].x) * (particlesArray[a].x - particlesArray[b].x)) + 
+                                   ((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y));
+                    
+                    if (distance < (canvas.width / 8) * (canvas.height / 8)) {
+                        ctx.strokeStyle = 'rgba(200, 200, 210, 0.06)';
+                        ctx.lineWidth = 0.8;
                         ctx.beginPath();
                         ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
-                        ctx.lineTo(mouse.x, mouse.y);
+                        ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
                         ctx.stroke();
                     }
                 }
