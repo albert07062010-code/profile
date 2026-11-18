@@ -43,7 +43,7 @@
             -webkit-backdrop-filter: blur(16px);
             border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 28px;
-            padding: 32px 30px; /* 稍微調整上下內距以容納新增的按鈕 */
+            padding: 32px 30px;
             width: calc(100% - 32px);
             max-width: 400px;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
@@ -221,25 +221,26 @@
             align-items: center;
             width: 100%;
         }
-            .btn {
-                display: flex;              /* 改用 flex 讓 icon 與文字垂直水平對齊更精準 */
-                align-items: center;
-                justify-content: flex-start; /* 內容靠左對齊 */
-                width: 100%;
-                max-width: 320px;
-                padding: 13px 22px;         /* 左側留 22px 呼吸空間，避免文字貼死邊框 */
-                background: #ffffff;
-                color: #000000;
-                text-decoration: none;
-                border-radius: 14px;
-                font-weight: 600;
-                font-size: 0.95rem;
-                transition: all 0.2s ease;
-                box-sizing: border-box;
-                border: none;
-                cursor: pointer;
-                text-align: left;
-            }
+
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            width: 100%;
+            max-width: 320px;
+            padding: 13px 20px;
+            background: #ffffff;
+            color: #000000;
+            text-decoration: none;
+            border-radius: 14px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
+            box-sizing: border-box;
+            border: none;
+            cursor: pointer;
+            text-align: left;
+        }
 
         .btn:hover {
             transform: scale(1.03);
@@ -254,6 +255,17 @@
 
         .btn.secondary:hover {
             background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* 統一控制按鈕內的 i 圖示與 svg 圖示尺寸及間距，確保完全垂直對齊 */
+        .btn i, .btn .btn-icon {
+            width: 22px;
+            height: 22px;
+            margin-right: 12px;
+            flex-shrink: 0;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
         }
 
         /* Board Technical Sub-layout */
@@ -359,13 +371,64 @@
 
         <div class="action-stack">
             <button class="btn" id="weatherTriggerBtn" onclick="switchInterface(true)">
-                <i class="fas fa-cloud-sun" style="margin-right: 8px;"></i>彰化數據同步中...
+                <i class="fas fa-cloud-sun"></i><span>彰化數據同步中...</span>
             </button>
-            <a href="https://railway.albert07062010.com" class="btn secondary" target="_blank" style="border-color: rgba(255, 255, 255, 0.18);">
-                <i class="fas fa-train" style="margin-right: 8px;"></i>鐵道專頁 / Railway
+            <a href="https://railway.albert07062010.com" class="btn secondary" target="_blank" style="border-color: rgba(255, 255, 255, 0.35);">
+                <svg class="btn-icon" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <!-- 黃黑相間警示條紋圖樣 -->
+                        <pattern id="hazard-stripes" width="5" height="5" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
+                            <rect width="2.5" height="5" fill="#ffd000"/>
+                            <rect x="2.5" width="2.5" height="5" fill="#18181c"/>
+                        </pattern>  
+                        <!-- 頭燈光暈 -->
+                        <radialGradient id="headlight-glow" cx="50%" cy="50%" r="50%">
+                            <stop offset="0%" stop-color="#ffffff" stop-opacity="1"/>
+                            <stop offset="45%" stop-color="#fff8d6" stop-opacity="0.75"/>
+                            <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+                        </radialGradient>
+                    </defs>
+
+                    <!-- 頭燈光暈 -->
+                    <circle cx="16" cy="4.5" r="4.5" fill="url(#headlight-glow)"/>
+
+                    <!-- 底部排障器與輪軌示意 -->
+                    <rect x="10.5" y="27.5" width="2.2" height="2.5" rx="0.5" fill="#4a4a55"/>
+                    <rect x="19.3" y="27.5" width="2.2" height="2.5" rx="0.5" fill="#4a4a55"/>
+
+                    <!-- 車身主體輪廓 (橘色) -->
+                    <path d="M6.5 9.5 Q16 5.5 25.5 9.5 L26 25.5 L23.5 27.5 L8.5 27.5 L6 25.5 Z" fill="#ff8400"/>
+
+                    <!-- 上半部米白塗裝 -->
+                    <path d="M6.5 9.5 Q16 5.5 25.5 9.5 L25.7 13.5 L6.3 13.5 Z" fill="#f7f5eb"/>
+
+                    <!-- 頭燈本體與尾燈點綴 -->
+                    <circle cx="16" cy="5.5" r="1.4" fill="#ffffff"/>
+                    <circle cx="11.5" cy="7.3" r="0.65" fill="#d94545"/>
+                    <circle cx="20.5" cy="7.3" r="0.65" fill="#d94545"/>
+
+                    <!-- 雙駕駛室車窗 -->
+                    <rect x="7.8" y="8.6" width="7.2" height="3.8" rx="1.2" fill="#323842" stroke="#1e2229" stroke-width="0.6"/>
+                    <rect x="17" y="8.6" width="7.2" height="3.8" rx="1.2" fill="#323842" stroke="#1e2229" stroke-width="0.6"/>
+
+                    <!-- 經典 V 字白色飾帶 -->
+                    <path d="M6.2 14.3 L10 14.3 L16 19.2 L22 14.3 L25.8 14.3 L25.8 15.8 L22.3 15.8 L16 21 L9.7 15.8 L6.2 15.8 Z" fill="#f7f5eb"/>
+
+                    <!-- 車號銘板示意 -->
+                    <rect x="10.2" y="14.2" width="3.2" height="1.3" rx="0.4" fill="#2b2b30"/>
+                    <rect x="18.6" y="14.2" width="3.2" height="1.3" rx="0.4" fill="#2b2b30"/>
+
+                    <!-- 底部黃黑相間警示裙板 -->
+                    <path d="M6.1 22.8 L25.9 22.8 L26 25.5 L23.5 27.5 L8.5 27.5 L6 25.5 Z" fill="url(#hazard-stripes)"/>
+                    
+                    <!-- 中央連結器與底框 -->
+                    <rect x="14.2" y="23.2" width="3.6" height="3.2" rx="0.6" fill="#26262c"/>
+                    <path d="M6.1 22.8 L25.9 22.8" stroke="#cc6600" stroke-width="0.6"/>
+                </svg>
+                <span>ALBERT'S 鐵道攝影 / Railway</span>
             </a>
             <a href="https://discord.com/users/987684332430835753" class="btn secondary" target="_blank" style="border-color: rgba(88, 101, 242, 0.4); color: #8c94f4;">
-                <i class="fab fa-discord" style="margin-right: 8px;"></i>聯絡我 / Add Discord Friend
+                <i class="fab fa-discord"></i><span>聯絡我 / Add Discord Friend</span>
             </a>
         </div>
     </div>
@@ -396,8 +459,8 @@
             </div>
         </div>
 
-        <button class="btn secondary" onclick="switchInterface(false)" style="width: 100%;">
-            <i class="fas fa-arrow-left" style="margin-right: 8px;"></i> 返回個人主頁
+        <button class="btn secondary" onclick="switchInterface(false)" style="width: 100%; justify-content: center;">
+            <i class="fas fa-arrow-left"></i><span>返回個人主頁</span>
         </button>
     </div>
 
@@ -466,11 +529,11 @@
 
                 const triggerBtn = document.getElementById('weatherTriggerBtn');
                 const weatherIcon = currentEnv.isRainy ? 'fa-cloud-showers-heavy' : 'fa-cloud-sun';
-                triggerBtn.innerHTML = `<i class="fas ${weatherIcon}" style="margin-right: 8px;"></i>彰化市當前氣溫 ${tempC}°C`;
+                triggerBtn.innerHTML = `<i class="fas ${weatherIcon}"></i><span>彰化市當前氣溫 ${tempC}°C</span>`;
                 
                 init();
             } catch (err) {
-                document.getElementById('weatherTriggerBtn').innerHTML = `<i class="fas fa-bolt" style="margin-right: 8px;"></i>即時氣象觀測台`;
+                document.getElementById('weatherTriggerBtn').innerHTML = `<i class="fas fa-bolt"></i><span>即時氣象觀測台</span>`;
                 document.getElementById('w-desc').innerText = '數據連線失敗';
             }
         }
