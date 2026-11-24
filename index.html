@@ -3,653 +3,1294 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>林勝崴 Albert | Personal Profile</title>
+    <title>林勝崴 Albert — Student · Radio · Railway</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        /* Document Setup */
-        body, html {
+        /* ==========================================================================
+           Apple Design System Tokens (Pure Light Mode — Zero Shadows, Zero Gradients)
+           ========================================================================== */
+        :root {
+            /* Palette */
+            --color-primary: #0071E3;
+            --color-accent: #2997FF;
+            --color-accent-1: #0066CC;
+            --color-accent-2: #B64400;
+            --color-on-primary: #FFFFFF;
+
+            --color-canvas: #FFFFFF;
+            --color-surface: #F5F5F7;
+            --color-surface-raised: #EBEBED;
+            --color-ink: #000000;
+            --color-body: #1D1D1F;
+            --color-muted: #6E6E73;
+            --color-faint: #86868B;
+            --color-hairline: #D2D2D7;
+            --color-neutral-1: #333336;
+            --color-dark-fill: #161617;
+
+            /* Typography Families */
+            --font-display: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", "PingFang TC", "Microsoft JhengHei", sans-serif;
+            --font-text: "SF Pro Text", -apple-system, BlinkMacSystemFont, "Helvetica Neue", "PingFang TC", "Microsoft JhengHei", sans-serif;
+
+            /* Border Radius Scale */
+            --rounded-none: 0px;
+            --rounded-xs: 8px;
+            --rounded-sm: 11px;
+            --rounded-md: 28px;
+            --rounded-full: 9999px;
+
+            /* Spacing Scale (4px base) */
+            --spacing-xxs: 8px;
+            --spacing-xs: 12px;
+            --spacing-sm: 16px;
+            --spacing-md: 20px;
+            --spacing-lg: 24px;
+            --spacing-xl: 28px;
+            --spacing-xxl: 32px;
+            --spacing-xxxl: 36px;
+            --spacing-section: 40px;
+            --spacing-band: 44px;
+        }
+
+        /* ==========================================================================
+           Base & Reset
+           ========================================================================== */
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            background-color: var(--color-canvas);
+            color: var(--color-body);
+            font-family: var(--font-text);
+            font-size: 17px;
+            line-height: 1.47;
+            letter-spacing: -0.37px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
             margin: 0;
             padding: 0;
+            background-color: var(--color-canvas);
+            color: var(--color-body);
+            overflow-x: hidden;
+        }
+
+        /* Container Strategy: 343px mobile -> 736px tablet -> 980px desktop */
+        .container {
             width: 100%;
-            height: 100%;
-            background-color: #08080a;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "Microsoft JhengHei", sans-serif;
-            color: #ffffff;
+            max-width: 343px;
+            margin: 0 auto;
+            padding: 0;
+        }
+
+        @media (min-width: 400px) {
+            .container {
+                max-width: calc(100% - 32px);
+            }
+        }
+
+        @media (min-width: 768px) {
+            .container {
+                max-width: 736px;
+                padding: 0 var(--spacing-xs);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .container {
+                max-width: 980px;
+                padding: 0 var(--spacing-xs);
+            }
+        }
+
+        /* Keyboard Focus Ring (Strict 2px solid #0071E3) */
+        a:focus-visible,
+        button:focus-visible {
+            outline: 2px solid var(--color-primary);
+            outline-offset: 2px;
+        }
+
+        /* ==========================================================================
+           Typography Utility Classes (Exact Measured Tokens)
+           ========================================================================== */
+        .eyebrow-badge {
+            display: inline-block;
+            font-family: var(--font-text);
+            font-size: 12px;
+            font-weight: 600;
+            line-height: 1.33;
+            letter-spacing: -0.12px;
+            color: var(--color-accent-2);
+            margin: 0 0 var(--spacing-xs) 0;
+        }
+
+        .hero-headline {
+            font-family: var(--font-display);
+            font-size: 40px;
+            font-weight: 600;
+            line-height: 1.1;
+            letter-spacing: 0px;
+            color: var(--color-ink);
+            margin: 0 0 var(--spacing-xs) 0;
+        }
+
+        @media (min-width: 768px) {
+            .hero-headline {
+                font-size: 64px;
+                line-height: 1.06;
+                letter-spacing: -0.58px;
+            }
+        }
+
+        @media (min-width: 1280px) {
+            .hero-headline {
+                font-size: 80px;
+                line-height: 1.05;
+                letter-spacing: -1.2px;
+            }
+        }
+
+        .section-headline {
+            font-family: var(--font-display);
+            font-size: 32px;
+            font-weight: 600;
+            line-height: 1.13;
+            letter-spacing: 0.13px;
+            color: var(--color-ink);
+            margin: 0 0 var(--spacing-xs) 0;
+        }
+
+        @media (min-width: 768px) {
+            .section-headline {
+                font-size: 48px;
+                line-height: 1.08;
+                letter-spacing: -0.14px;
+            }
+        }
+
+        @media (min-width: 1280px) {
+            .section-headline {
+                font-size: 56px;
+                line-height: 1.07;
+                letter-spacing: -0.28px;
+            }
+        }
+
+        .lead-copy {
+            font-family: var(--font-display);
+            font-size: 24px;
+            font-weight: 400;
+            line-height: 1.17;
+            letter-spacing: 0.22px;
+            color: var(--color-body);
+            margin: 0 auto var(--spacing-sm) auto;
+            max-width: 640px;
+        }
+
+        @media (min-width: 768px) {
+            .lead-copy {
+                font-size: 28px;
+                line-height: 1.14;
+                letter-spacing: 0.2px;
+            }
+        }
+
+        .motto-copy {
+            font-family: var(--font-text);
+            font-size: 17px;
+            font-weight: 400;
+            line-height: 1.47;
+            letter-spacing: -0.37px;
+            color: var(--color-muted);
+            margin: 0 auto var(--spacing-xl) auto;
+            max-width: 520px;
+        }
+
+        /* ==========================================================================
+           Navigation Bar (44px Height, Semi-transparent Dark Global Nav + Subnav)
+           ========================================================================== */
+        .global-nav {
+            position: sticky;
+            top: 0;
+            z-index: 30;
+            width: 100%;
+            height: 44px;
+            background-color: rgba(29, 29, 31, 0.8);
+            border-radius: var(--rounded-none);
+        }
+
+        .global-nav-inner {
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-brand {
+            font-family: var(--font-text);
+            font-size: 14px;
+            font-weight: 600;
+            line-height: 1.29;
+            letter-spacing: -0.22px;
+            color: var(--color-on-primary);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-xxs);
+            height: 44px;
+            opacity: 0.92;
+            transition: opacity 0.2s ease;
+        }
+
+        .nav-brand:hover {
+            opacity: 1;
+        }
+
+        .nav-links {
+            display: none;
+            align-items: center;
+            gap: var(--spacing-xl);
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        @media (min-width: 768px) {
+            .nav-links {
+                display: flex;
+            }
+        }
+
+        .nav-links a {
+            display: inline-flex;
+            align-items: center;
+            height: 44px;
+            font-family: var(--font-text);
+            font-size: 12px;
+            font-weight: 400;
+            line-height: 1;
+            letter-spacing: -0.12px;
+            color: var(--color-on-primary);
+            opacity: 0.82;
+            text-decoration: none;
+            transition: opacity 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            opacity: 1;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+
+        .nav-live-clock {
+            font-family: var(--font-text);
+            font-size: 12px;
+            font-weight: 400;
+            line-height: 1;
+            letter-spacing: -0.12px;
+            color: var(--color-on-primary);
+            opacity: 0.82;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .menu-toggle {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            background: transparent;
+            border: none;
+            color: var(--color-on-primary);
+            opacity: 0.82;
+            font-size: 17px;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        .menu-toggle:hover {
+            opacity: 1;
+        }
+
+        @media (min-width: 768px) {
+            .menu-toggle {
+                display: none;
+            }
+        }
+
+        /* Mobile Collapsible Drawer (z-index 30, color-blocking) */
+        .mobile-nav-drawer {
+            display: none;
+            background-color: var(--color-body);
+            border-bottom: 1px solid var(--color-neutral-1);
+        }
+
+        .mobile-nav-drawer.open {
+            display: block;
+        }
+
+        .mobile-nav-list {
+            list-style: none;
+            margin: 0;
+            padding: var(--spacing-xs) 0 var(--spacing-md) 0;
+        }
+
+        .mobile-nav-list li {
+            border-bottom: 1px solid var(--color-neutral-1);
+        }
+
+        .mobile-nav-list a {
+            display: flex;
+            align-items: center;
+            height: 44px;
+            font-family: var(--font-text);
+            font-size: 17px;
+            font-weight: 400;
+            letter-spacing: -0.37px;
+            color: var(--color-on-primary);
+            opacity: 0.92;
+            text-decoration: none;
+        }
+
+        /* Secondary Local Sub-Navigation (44px Transparent + Hairline) */
+        .local-subnav {
+            width: 100%;
+            height: 44px;
+            background-color: var(--color-canvas);
+            border-bottom: 1px solid var(--color-hairline);
+        }
+
+        .local-subnav-inner {
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .subnav-title {
+            font-family: var(--font-display);
+            font-size: 19px;
+            font-weight: 600;
+            line-height: 1.21;
+            letter-spacing: 0.23px;
+            color: var(--color-ink);
+        }
+
+        .subnav-meta {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+        }
+
+        .subnav-callsign {
+            font-family: var(--font-text);
+            font-size: 12px;
+            font-weight: 600;
+            line-height: 1.33;
+            letter-spacing: -0.12px;
+            color: var(--color-muted);
+            display: none;
+        }
+
+        @media (min-width: 768px) {
+            .subnav-callsign {
+                display: inline;
+            }
+        }
+
+        /* ==========================================================================
+           Buttons & Links (Apple Pill Affordances & Accent Links)
+           ========================================================================== */
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--spacing-xxs);
+            min-height: 44px;
+            padding: 11px 21px;
+            background-color: var(--color-primary);
+            color: var(--color-on-primary);
+            font-family: var(--font-text);
+            font-size: 17px;
+            font-weight: 400;
+            line-height: 1.18;
+            letter-spacing: -0.37px;
+            border-radius: var(--rounded-full);
+            border: 1px solid transparent;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.2s ease, opacity 0.2s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--color-accent-1);
+            opacity: 1;
+        }
+
+        .btn-primary-sm {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 28px;
+            padding: 5px 15px;
+            background-color: var(--color-primary);
+            color: var(--color-on-primary);
+            font-family: var(--font-text);
+            font-size: 12px;
+            font-weight: 400;
+            line-height: 1.33;
+            letter-spacing: -0.12px;
+            border-radius: var(--rounded-full);
+            border: 1px solid transparent;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .btn-primary-sm:hover {
+            background-color: var(--color-accent-1);
+        }
+
+        .btn-outline {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--spacing-xxs);
+            min-height: 44px;
+            padding: 11px 21px;
+            background-color: transparent;
+            color: var(--color-accent-1);
+            font-family: var(--font-text);
+            font-size: 17px;
+            font-weight: 400;
+            line-height: 1.18;
+            letter-spacing: -0.37px;
+            border-radius: var(--rounded-full);
+            border: 1px solid var(--color-accent);
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+
+        .btn-outline:hover {
+            background-color: var(--color-primary);
+            border-color: var(--color-primary);
+            color: var(--color-on-primary);
+        }
+
+        .btn-icon-circle {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: rgba(210, 210, 215, 0.64);
+            color: rgba(0, 0, 0, 0.56);
+            border: none;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+
+        .btn-icon-circle:hover {
+            background-color: var(--color-hairline);
+            color: var(--color-ink);
+        }
+
+        .btn-icon-circle:disabled {
+            opacity: 0.36;
+            cursor: not-allowed;
+        }
+
+        .apple-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-family: var(--font-text);
+            font-size: 17px;
+            font-weight: 400;
+            line-height: 1.47;
+            letter-spacing: -0.37px;
+            color: var(--color-accent);
+            text-decoration: none;
+            transition: color 0.15s ease;
+        }
+
+        .apple-link:hover {
+            color: var(--color-accent-1);
+            text-decoration: underline;
+        }
+
+        .apple-link .chevron {
+            font-size: 12px;
+            text-decoration: none;
+        }
+
+        /* ==========================================================================
+           Band 1: Hero Showcase (Canvas #FFFFFF)
+           ========================================================================== */
+        .hero-band {
+            background-color: var(--color-canvas);
+            padding: calc(var(--spacing-band) * 1.5) 0 var(--spacing-band) 0;
+            text-align: center;
+        }
+
+        @media (min-width: 768px) {
+            .hero-band {
+                padding: calc(var(--spacing-band) * 2) 0 calc(var(--spacing-band) * 1.5) 0;
+            }
+        }
+
+        .hero-avatar-frame {
+            width: 104px;
+            height: 104px;
+            margin: 0 auto var(--spacing-lg) auto;
+            border-radius: 50%;
+            background-color: var(--color-surface);
+            border: 1px solid var(--color-hairline);
             overflow: hidden;
             display: flex;
-            justify-content: center;
             align-items: center;
-            position: fixed;
-            top: 0;
-            left: 0;
-            touch-action: none; /* 阻止行動端瀏覽器不必要的下拉重整與橡皮筋回彈 */
+            justify-content: center;
         }
 
-        /* Fixed Background Canvas */
-        #particleCanvas {
-            position: fixed;
-            top: 0;
-            left: 0;
+        .hero-avatar {
             width: 100%;
             height: 100%;
-            z-index: 0;
-        }
-
-        /* Base Card Interface Grid */
-        .symmetric-card, .station-weather-board {
-            position: absolute;
-            background: rgba(20, 20, 25, 0.7);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 28px;
-            padding: 32px 30px;
-            width: calc(100% - 32px);
-            max-width: 400px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
-            box-sizing: border-box;
-            transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        /* Primary Profile Card Specifics */
-        .symmetric-card {
-            z-index: 2;
-            text-align: center;
-            opacity: 0;
-            transform: translateY(15px);
-        }
-
-        .symmetric-card.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .symmetric-card.hidden-state {
-            opacity: 0;
-            transform: translateY(15px);
-            pointer-events: none;
-        }
-
-        /* Fullscale Meteorological Station Dashboard */
-        .station-weather-board {
-            z-index: 1;
-            opacity: 0;
-            transform: scale(0.95) translateY(-10px);
-            pointer-events: none;
-        }
-
-        .station-weather-board.active {
-            z-index: 3;
-            opacity: 1;
-            transform: scale(1) translateY(0);
-            pointer-events: auto;
-        }
-
-        /* Hover States */
-        .symmetric-card:hover, .station-weather-board:hover {
-            border: 1px solid rgba(255, 255, 255, 0.15);
-        }
-
-        /* 即時時間觀測器樣式 */
-        .live-clock-wrapper {
-            font-size: 0.85rem;
-            font-family: "Courier New", Courier, monospace;
-            color: #8c94f4;
-            letter-spacing: 1px;
-            margin-bottom: 16px;
-            opacity: 0.8;
-        }
-
-        #live-clock {
-            font-weight: 600;
-        }
-
-        #live-date {
-            font-size: 0.7rem;
-            color: #707080;
-            margin-top: 2px;
-        }
-
-        /* Avatar Elements */
-        .avatar-wrapper {
-            position: relative;
-            display: inline-block;
-            margin-bottom: 16px;
-        }
-
-        .avatar {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            background-color: #1a1a22;
-            border: 3px solid rgba(255, 255, 255, 0.1);
             object-fit: cover;
             display: block;
         }
 
-        .avatar-wrapper::after {
-            content: '';
-            position: absolute;
-            top: -6px; left: -6px; right: -6px; bottom: -6px;
-            border-radius: 50%;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        /* Typography Configuration */
-        .name {
-            font-size: 1.9rem;
+        .hero-avatar-fallback {
+            display: none;
+            font-family: var(--font-display);
+            font-size: 32px;
             font-weight: 600;
-            margin: 0 0 4px 0;
-            letter-spacing: 1px;
+            letter-spacing: 0.13px;
+            color: var(--color-muted);
         }
 
-        .bio {
-            font-size: 0.95rem;
-            color: #a0a0b0;
-            margin: 0 0 16px 0;
-            font-weight: 300;
-            line-height: 1.5;
-        }
-
-        /* 個人格言樣式 */
-        .motto {
-            font-size: 0.88rem;
-            color: #dcdcdc;
-            font-style: italic;
-            margin: 0 0 20px 0;
-            line-height: 1.6;
-            font-weight: 300;
-            letter-spacing: 0.5px;
-            padding: 0 10px;
-        }
-
-        /* Pill Capsules */
-        .tag-capsules {
+        .hero-cta-group {
             display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 24px;
             flex-wrap: wrap;
-        }
-
-        .capsule {
-            background: rgba(255, 255, 255, 0.04);
-            padding: 7px 14px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            color: #dcdcdc;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            letter-spacing: 0.5px;
-        }
-
-        .capsule.callsign {
-            border-color: rgba(140, 148, 244, 0.3);
-            color: #a2aaff;
-        }
-
-        /* Social Node Grid */
-        .social-links {
-            display: flex;
             justify-content: center;
-            gap: 22px;
-            margin-bottom: 26px;
+            align-items: center;
+            gap: var(--spacing-sm);
         }
 
-        .social-icon {
-            color: #a0a0b0;
-            font-size: 1.55rem;
-            transition: all 0.2s ease;
-            text-decoration: none;
+        /* ==========================================================================
+           Band 2: 3-Column Feature Cards (Surface #F5F5F7 Cards with 28px Radius)
+           ========================================================================== */
+        .pillars-band {
+            background-color: var(--color-canvas);
+            padding: var(--spacing-section) 0 calc(var(--spacing-band) * 2) 0;
         }
 
-        .social-icon:hover {
-            transform: scale(1.15) translateY(-2px);
+        .band-header {
+            margin-bottom: var(--spacing-xxl);
         }
-        
-        .social-icon.instagram:hover { color: #e1306c; }
-        .social-icon.discord:hover { color: #5865f2; }
-        .social-icon.email:hover { color: #1d9bf0; }
 
-        /* Functional Button Stack */
-        .action-stack {
+        .three-col-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--spacing-md);
+        }
+
+        @media (min-width: 768px) {
+            .three-col-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: var(--spacing-md);
+            }
+        }
+
+        /* Card-2 Spec: #F5F5F7 Surface, 28px Radius, Zero Shadow */
+        .feature-card {
+            background-color: var(--color-surface);
+            border-radius: var(--rounded-md);
+            padding: var(--spacing-xxl) var(--spacing-lg);
             display: flex;
             flex-direction: column;
-            gap: 10px;
-            align-items: center;
-            width: 100%;
-        }
-
-        .btn {
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
-            width: 100%;
-            max-width: 320px;
-            padding: 13px 20px;
-            background: #ffffff;
-            color: #000000;
-            text-decoration: none;
-            border-radius: 14px;
-            font-weight: 600;
-            font-size: 0.95rem;
-            transition: all 0.2s ease;
-            box-sizing: border-box;
-            border: none;
-            cursor: pointer;
-            text-align: left;
-        }
-
-        .btn:hover {
-            transform: scale(1.03);
-            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
-        }
-
-        .btn.secondary {
-            background: rgba(255, 255, 255, 0.05);
-            color: #ffffff;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .btn.secondary:hover {
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        /* 統一控制按鈕內的 i 圖示與 svg 圖示尺寸及間距，確保完全垂直對齊 */
-        .btn i, .btn .btn-icon {
-            width: 22px;
-            height: 22px;
-            margin-right: 12px;
-            flex-shrink: 0;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        /* Board Technical Sub-layout */
-        .board-header {
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-            padding-bottom: 15px;
-            margin-bottom: 25px;
-            text-align: left;
-        }
-
-        .board-title {
-            font-size: 1.25rem;
-            font-weight: 600;
-            margin: 0;
-            letter-spacing: 0.5px;
-        }
-
-        .board-subtitle {
-            font-size: 0.8rem;
-            color: #707080;
-            margin: 4px 0 0 0;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .metrics-vertical-stack {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            margin-bottom: 30px;
-        }
-
-        .metric-row {
-            display: flex;
             justify-content: space-between;
-            align-items: center;
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            padding: 14px 18px;
-            border-radius: 14px;
+            min-height: 420px;
+            transition: background-color 0.25s ease;
         }
 
-        .metric-label {
-            font-size: 0.9rem;
-            color: #a0a0b0;
+        @media (min-width: 1024px) {
+            .feature-card {
+                min-height: 460px;
+                padding: var(--spacing-xxxl) var(--spacing-xl);
+            }
+        }
+
+        .feature-card:hover {
+            background-color: var(--color-surface-raised);
+        }
+
+        .card-title {
+            font-family: var(--font-display);
+            font-size: 24px;
+            font-weight: 600;
+            line-height: 1.17;
+            letter-spacing: 0.22px;
+            color: var(--color-ink);
+            margin: 0 0 var(--spacing-xs) 0;
+        }
+
+        .card-copy {
+            font-family: var(--font-text);
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 1.43;
+            letter-spacing: -0.22px;
+            color: var(--color-muted);
+            margin: 0 0 var(--spacing-lg) 0;
+        }
+
+        /* Visual Centerpieces inside Feature Cards */
+        .card-visual-stage {
+            background-color: var(--color-canvas);
+            border: 1px solid var(--color-hairline);
+            border-radius: var(--rounded-sm);
+            padding: var(--spacing-lg) var(--spacing-md);
+            margin-bottom: var(--spacing-lg);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 148px;
+        }
+
+        .locomotive-svg {
+            width: 72px;
+            height: 72px;
+            display: block;
+            margin-bottom: var(--spacing-xxs);
+        }
+
+        .visual-caption {
+            font-family: var(--font-text);
+            font-size: 12px;
+            font-weight: 600;
+            line-height: 1.33;
+            letter-spacing: -0.12px;
+            color: var(--color-muted);
+        }
+
+        .callsign-display {
+            font-family: var(--font-display);
+            font-size: 40px;
+            font-weight: 600;
+            line-height: 1.1;
+            letter-spacing: 0px;
+            color: var(--color-ink);
+            margin: 0 0 6px 0;
+        }
+
+        .spec-pills-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 6px;
+            margin-top: var(--spacing-xxs);
+        }
+
+        .spec-pill {
+            font-family: var(--font-text);
+            font-size: 10px;
+            font-weight: 600;
+            line-height: 1.2;
+            letter-spacing: -0.08px;
+            color: var(--color-muted);
+            background-color: var(--color-surface);
+            padding: 4px 8px;
+            border-radius: var(--rounded-xs);
+        }
+
+        .clock-stage-time {
+            font-family: var(--font-display);
+            font-size: 32px;
+            font-weight: 600;
+            line-height: 1.13;
+            letter-spacing: 0.13px;
+            color: var(--color-ink);
+            font-variant-numeric: tabular-nums;
+            margin: 0 0 4px 0;
+        }
+
+        .clock-stage-date {
+            font-family: var(--font-text);
+            font-size: 12px;
+            font-weight: 600;
+            line-height: 1.33;
+            letter-spacing: -0.12px;
+            color: var(--color-muted);
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* ==========================================================================
+           Band 3: Live Meteorological Station (Full-Bleed #F5F5F7 Surface Band)
+           Uses Sharp Containers (0px radius) + Hairline Dividers per Apple Spec
+           ========================================================================== */
+        .telemetry-band {
+            background-color: var(--color-surface);
+            padding: calc(var(--spacing-band) * 1.75) 0;
+            border-top: 1px solid var(--color-hairline);
+            border-bottom: 1px solid var(--color-hairline);
+        }
+
+        .telemetry-top-bar {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-section);
+        }
+
+        @media (min-width: 768px) {
+            .telemetry-top-bar {
+                flex-direction: row;
+                align-items: flex-end;
+                justify-content: space-between;
+            }
+        }
+
+        .telemetry-status-row {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: var(--spacing-xs);
         }
 
-        .metric-label i {
-            width: 16px;
-            text-align: center;
-            color: #8c94f4;
+        .telemetry-status-text {
+            font-family: var(--font-text);
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 1.29;
+            letter-spacing: -0.22px;
+            color: var(--color-muted);
         }
 
-        .metric-val {
-            font-size: 1.05rem;
+        /* Sharp 0px Spec Grid (Contrast against rounded buttons) */
+        .telemetry-spec-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            border-top: 1px solid var(--color-hairline);
+        }
+
+        @media (min-width: 768px) {
+            .telemetry-spec-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .telemetry-cell {
+            border-radius: var(--rounded-none);
+            padding: var(--spacing-xl) 0;
+            border-bottom: 1px solid var(--color-hairline);
+        }
+
+        @media (min-width: 768px) {
+            .telemetry-cell {
+                padding: var(--spacing-xxl) var(--spacing-lg) var(--spacing-xxl) 0;
+            }
+
+            .telemetry-cell:not(:first-child) {
+                padding-left: var(--spacing-lg);
+                border-left: 1px solid var(--color-hairline);
+            }
+        }
+
+        .metric-caption {
+            font-family: var(--font-text);
+            font-size: 12px;
             font-weight: 600;
-            color: #ffffff;
+            line-height: 1.33;
+            letter-spacing: -0.12px;
+            color: var(--color-muted);
+            margin: 0 0 var(--spacing-xs) 0;
+            text-transform: uppercase;
+        }
+
+        .metric-big-value {
+            font-family: var(--font-display);
+            font-size: 48px;
+            font-weight: 600;
+            line-height: 1.08;
+            letter-spacing: -0.14px;
+            color: var(--color-ink);
+            font-variant-numeric: tabular-nums;
+            margin: 0 0 var(--spacing-xxs) 0;
+        }
+
+        @media (min-width: 1024px) {
+            .metric-big-value {
+                font-size: 56px;
+                line-height: 1.07;
+                letter-spacing: -0.28px;
+            }
+        }
+
+        .metric-sub-detail {
+            font-family: var(--font-text);
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 1.29;
+            letter-spacing: -0.22px;
+            color: var(--color-body);
+            margin: 0;
+        }
+
+        /* ==========================================================================
+           Band 4: Connect Directory (Canvas #FFFFFF, 3-Column Sharp Cards)
+           ========================================================================== */
+        .connect-band {
+            background-color: var(--color-canvas);
+            padding: calc(var(--spacing-band) * 1.75) 0;
+        }
+
+        .connect-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--spacing-xl);
+            margin-top: var(--spacing-xxl);
+            padding-top: var(--spacing-xxl);
+            border-top: 1px solid var(--color-hairline);
+        }
+
+        @media (min-width: 768px) {
+            .connect-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: var(--spacing-lg);
+            }
+        }
+
+        .connect-item {
+            border-radius: var(--rounded-none);
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .connect-icon {
+            font-size: 24px;
+            color: var(--color-ink);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .connect-title {
+            font-family: var(--font-display);
+            font-size: 19px;
+            font-weight: 600;
+            line-height: 1.21;
+            letter-spacing: 0.23px;
+            color: var(--color-ink);
+            margin: 0 0 6px 0;
+        }
+
+        .connect-handle {
+            font-family: var(--font-text);
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 1.29;
+            letter-spacing: -0.22px;
+            color: var(--color-muted);
+            margin: 0 0 var(--spacing-sm) 0;
+            word-break: break-all;
+        }
+
+        /* ==========================================================================
+           Footer (Apple Legal & Directory Footer — #F5F5F7, 12px Body XS Loose)
+           ========================================================================== */
+        .apple-footer {
+            background-color: var(--color-surface);
+            color: rgba(0, 0, 0, 0.56);
+            font-family: var(--font-text);
+            font-size: 12px;
+            font-weight: 400;
+            line-height: 1.6;
+            letter-spacing: -0.12px;
+            padding: var(--spacing-xl) 0 var(--spacing-xxl) 0;
+            border-top: 1px solid var(--color-hairline);
+        }
+
+        .footer-notes {
+            padding-bottom: var(--spacing-sm);
+            border-bottom: 1px solid var(--color-hairline);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .footer-notes p {
+            margin: 0 0 6px 0;
+        }
+
+        .footer-bottom {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-xxs);
+        }
+
+        @media (min-width: 768px) {
+            .footer-bottom {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+        }
+
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-sm);
+        }
+
+        .footer-links a {
+            color: rgba(0, 0, 0, 0.72);
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            color: var(--color-ink);
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
 
-    <canvas id="particleCanvas"></canvas>
+    <!-- Primary Global Navigation Bar (44px, Semi-transparent Dark) -->
+    
 
-    <!-- UI Block 1: Profile Gateway -->
-    <div class="symmetric-card">
-        <!-- 頂部極簡時間觀測 -->
-        <div class="live-clock-wrapper">
-            <i class="far fa-clock"></i> <span id="live-clock">00:00:00</span>
-            <div id="live-date">2026 / 01 / 01 SUN</div>
-        </div>
+    <!-- Secondary Local Sub-Navigation (44px, Hairline Divider) -->
+    
 
-        <div class="avatar-wrapper">
-            <img src="avatar.jpg" alt="Avatar" class="avatar">
-        </div>
-        
-        <h1 class="name">林勝崴 Albert</h1>
-        <p class="bio">Student / Radio / Railway</p>
-        
-        <p class="motto">
-            給我一個槓桿，我可以虧掉一個地球。
-        </p>
-        
-        <div class="tag-capsules">
-            <div class="capsule callsign">
-                <i class="fas fa-broadcast-tower"></i>
-                <span>BM5GUP</span>
+    <main id="top">
+        <!-- Band 1: Editorial Hero (#FFFFFF Canvas) -->
+        <section id="overview" class="hero-band">
+            <div class="container">
+                <div class="hero-avatar-frame">
+                    <img
+                        src="avatar.jpg"
+                        alt="林勝崴 Albert"
+                        class="hero-avatar"
+                        onerror="this.style.display='none'; document.getElementById('avatarFallback').style.display='block';"
+                    >
+                    <span id="avatarFallback" class="hero-avatar-fallback" aria-hidden="true">AL</span>
+                </div>
+
+                <p class="eyebrow-badge">BM5GUP · CHANGHUA, TAIWAN</p>
+                <h1 class="hero-headline">林勝崴 Albert</h1>
+                <p class="lead-copy">Student. Radio. Railway.</p>
+                <p class="motto-copy">「給我一個槓桿，我可以虧掉一個地球。」</p>
+
+                <div class="hero-cta-group">
+                    <a href="https://railway.albert07062010.com" class="btn-primary" target="_blank" rel="noopener noreferrer">
+                        <span>探索鐵道攝影</span>
+                    </a>
+                    <a href="#telemetry" class="btn-outline">
+                        <span id="heroWeatherChip">查看彰化即時氣象</span>
+                    </a>
+                </div>
             </div>
-            <div class="capsule">
-                <i class="fas fa-map-marker-alt"></i>
-                <span>彰化, TW</span>
+        </section>
+
+        <!-- Band 2: 3-Column Pillars Grid (#F5F5F7 Surface Cards, 28px Radius) -->
+        <section id="pillars" class="pillars-band" aria-labelledby="pillars-heading">
+            <div class="container">
+                <div class="band-header">
+                    <p class="eyebrow-badge">ABOUT</p>
+                    <h2 id="pillars-heading" class="section-headline">興趣 & 日常。</h2>
+                </div>
+
+                <div class="three-col-grid">
+                    <!-- Column 1: Railway Photography -->
+                    <article class="feature-card">
+                        <div>
+                            <p class="eyebrow-badge">RAILWAY ARCHIVE</p>
+                            <h3 class="card-title">鐵道紀實攝影</h3>
+                            <p class="card-copy">
+                                以照片紀錄臺灣鐵道沿線的列車。
+                            </p>
+                        </div>
+
+                        <div>
+                            <div class="card-visual-stage">
+                                <!-- Flat Vector Locomotive Artwork (Zero Gradients) -->
+                                <svg class="locomotive-svg" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                    <defs>
+                                        <pattern id="hazard-stripes" width="5" height="5" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
+                                            <rect width="2.5" height="5" fill="#ffd000"/>
+                                            <rect x="2.5" width="2.5" height="5" fill="#18181c"/>
+                                        </pattern>
+                                    </defs>
+                                    <rect x="10.5" y="27.5" width="2.2" height="2.5" rx="0.5" fill="#4a4a55"/>
+                                    <rect x="19.3" y="27.5" width="2.2" height="2.5" rx="0.5" fill="#4a4a55"/>
+                                    <path d="M6.5 9.5 Q16 5.5 25.5 9.5 L26 25.5 L23.5 27.5 L8.5 27.5 L6 25.5 Z" fill="#ff8400"/>
+                                    <path d="M6.5 9.5 Q16 5.5 25.5 9.5 L25.7 13.5 L6.3 13.5 Z" fill="#f7f5eb"/>
+                                    <circle cx="16" cy="5.5" r="1.4" fill="#1D1D1F"/>
+                                    <circle cx="11.5" cy="7.3" r="0.65" fill="#d94545"/>
+                                    <circle cx="20.5" cy="7.3" r="0.65" fill="#d94545"/>
+                                    <rect x="7.8" y="8.6" width="7.2" height="3.8" rx="1.2" fill="#323842" stroke="#1e2229" stroke-width="0.6"/>
+                                    <rect x="17" y="8.6" width="7.2" height="3.8" rx="1.2" fill="#323842" stroke="#1e2229" stroke-width="0.6"/>
+                                    <path d="M6.2 14.3 L10 14.3 L16 19.2 L22 14.3 L25.8 14.3 L25.8 15.8 L22.3 15.8 L16 21 L9.7 15.8 L6.2 15.8 Z" fill="#f7f5eb"/>
+                                    <rect x="10.2" y="14.2" width="3.2" height="1.3" rx="0.4" fill="#2b2b30"/>
+                                    <rect x="18.6" y="14.2" width="3.2" height="1.3" rx="0.4" fill="#2b2b30"/>
+                                    <path d="M6.1 22.8 L25.9 22.8 L26 25.5 L23.5 27.5 L8.5 27.5 L6 25.5 Z" fill="url(#hazard-stripes)"/>
+                                    <rect x="14.2" y="23.2" width="3.6" height="3.2" rx="0.6" fill="#26262c"/>
+                                    <path d="M6.1 22.8 L25.9 22.8" stroke="#cc6600" stroke-width="0.6"/>
+                                </svg>
+                                <span class="visual-caption">ALBERT'S RAILWAY</span>
+                            </div>
+
+                            <a href="https://railway.albert07062010.com" class="apple-link" target="_blank" rel="noopener noreferrer">
+                                <span>前往攝影集</span>
+                                <i class="fas fa-chevron-right chevron" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </article>
+
+                    <!-- Column 2: Amateur Radio -->
+                    <article class="feature-card">
+                        <div>
+                            <p class="eyebrow-badge">AMATEUR RADIO</p>
+                            <h3 class="card-title">業餘無線電通訊</h3>
+                            <p class="card-copy">
+                                持有三等業餘無線電人員執照，於彰化進行守聽與區域無線電通聯。
+                            </p>
+                        </div>
+
+                        <div>
+                            <div class="card-visual-stage">
+                                <p class="callsign-display">BM5GUP</p>
+                                <div class="spec-pills-row">
+                                    <span class="spec-pill">ITU ZONE 44</span>
+                                    <span class="spec-pill">CQ ZONE 24</span>
+                                    <span class="spec-pill">QTH CHANGHUA</span>
+                                </div>
+                            </div>
+
+                            <a href="mailto:email@albert07062010.com" class="apple-link">
+                                <span>聯繫我</span>
+                                <i class="fas fa-chevron-right chevron" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </article>
+
+                    <!-- Column 3: Student & Local Time -->
+                    <article class="feature-card">
+                        <div>
+                            <p class="eyebrow-badge">LOCAL STANDARD TIME</p>
+                            <h3 class="card-title">在學日常與時區</h3>
+                            <p class="card-copy">
+                                於彰化生活與求學，持續在課業之餘投入攝影、無線電通聯與個人數位作品。
+                            </p>
+                        </div>
+
+                        <div>
+                            <div class="card-visual-stage">
+                                <p class="clock-stage-time" id="live-clock">00:00:00</p>
+                                <span class="clock-stage-date" id="live-date">2026 / 01 / 01 SUN</span>
+                            </div>
+
+                            <a href="https://github.com/albert07062010-code" class="apple-link">
+                                <span>檢視GitHub頁面</span>
+                                <i class="fas fa-chevron-right chevron" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Band 3: Full-Bleed Live Meteorological Telemetry (#F5F5F7 Surface, 0px Sharp Spec Grid) -->
+        <section id="telemetry" class="telemetry-band" aria-labelledby="telemetry-heading">
+            <div class="container">
+                <div class="telemetry-top-bar">
+                    <div>
+                        <p class="eyebrow-badge">LIVE METEOROLOGICAL METRICS</p>
+                        <h2 id="telemetry-heading" class="section-headline" style="margin-bottom: 0;">彰化氣象</h2>
+                    </div>
+
+                    <div class="telemetry-status-row">
+                        <span class="telemetry-status-text" id="w-desc">數據同步中...</span>
+                        <button
+                            type="button"
+                            class="btn-icon-circle"
+                            id="refreshWeatherBtn"
+                            onclick="fetchWeatherMetrics()"
+                            title="重新整理氣象數據"
+                            aria-label="重新整理氣象數據"
+                        >
+                            <i class="fas fa-rotate-right" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="telemetry-spec-grid">
+                    <div class="telemetry-cell">
+                        <p class="metric-caption">當前氣溫 · 體感</p>
+                        <p class="metric-big-value" id="w-temp">--°C</p>
+                        <p class="metric-sub-detail">體感溫度 <strong id="w-feel">--°C</strong></p>
+                    </div>
+
+                    <div class="telemetry-cell">
+                        <p class="metric-caption">相對濕度</p>
+                        <p class="metric-big-value" id="w-humidity">--%</p>
+                        <p class="metric-sub-detail">彰化市地面大氣觀測</p>
+                    </div>
+
+                    <div class="telemetry-cell">
+                        <p class="metric-caption">即時風速</p>
+                        <p class="metric-big-value" id="w-wind">--</p>
+                        <p class="metric-sub-detail">單位 km/h · 自動更新</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Band 4: Connect Directory (#FFFFFF Canvas, 3-Column Layout) -->
+        <section id="connect" class="connect-band" aria-labelledby="connect-heading">
+            <div class="container">
+                <p class="eyebrow-badge">CONNECT</p>
+                <h2 id="connect-heading" class="section-headline">保持聯繫。</h2>
+                <p class="motto-copy" style="margin: 0;">
+                    無論是鐵道攝影交流、無線電通聯紀錄，或是日常聯絡，歡迎透過以下管道。
+                </p>
+
+                <div class="connect-grid">
+                    <div class="connect-item">
+                        <i class="fab fa-discord connect-icon" aria-hidden="true"></i>
+                        <h3 class="connect-title">Discord</h3>
+                        <p class="connect-handle">好友邀請</p>
+                        <a href="https://discord.com/users/987684332430835753" class="apple-link" target="_blank" rel="noopener noreferrer">
+                            <span>新增 Discord 好友</span>
+                            <i class="fas fa-chevron-right chevron" aria-hidden="true"></i>
+                        </a>
+                    </div>
+
+                    <div class="connect-item">
+                        <i class="fab fa-instagram connect-icon" aria-hidden="true"></i>
+                        <h3 class="connect-title">Instagram</h3>
+                        <p class="connect-handle">@albert._.990706</p>
+                        <a href="https://www.instagram.com/albert._.990706/" class="apple-link" target="_blank" rel="noopener noreferrer">
+                            <span>前往 Instagram 主頁</span>
+                            <i class="fas fa-chevron-right chevron" aria-hidden="true"></i>
+                        </a>
+                    </div>
+
+                    <div class="connect-item">
+                        <i class="far fa-envelope connect-icon" aria-hidden="true"></i>
+                        <h3 class="connect-title">電子郵件</h3>
+                        <p class="connect-handle">albert07062010@gmail.com</p>
+                        <a href="mailto:albert07062010@gmail.com" class="apple-link">
+                            <span>傳送郵件</span>
+                            <i class="fas fa-chevron-right chevron" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+
+    <footer class="apple-footer">
+        <div class="container">
+            <div class="footer-notes">
+                <p>業餘無線電呼號 BM5GUP 為 主管機關 NCC 合法核發呼號；鐵道攝影作品版權均屬林勝崴 Albert 所有。</p>
+            </div>
+
+            <div class="footer-bottom">
+                <span>Copyright © 2026  Albert. All Rights Reserved。</span>
+                <div class="footer-links">
+                    <a href="https://railway.albert07062010.com" target="_blank" rel="noopener noreferrer">鐵道攝影網站</a>
+                    <a href="https://www.instagram.com/albert._.990706/" target="_blank" rel="noopener noreferrer">Instagram</a>
+                    <a href="https://discord.com/users/987684332430835753" target="_blank" rel="noopener noreferrer">Discord</a>
+                    <a href="mailto:albert07062010@gmail.com">Email</a>
+                    <span>彰化, 台灣</span>
+                </div>
             </div>
         </div>
+    </footer>
 
-        <div class="social-links">
-            <a href="https://www.instagram.com/albert._.990706/" class="social-icon instagram" title="Instagram" target="_blank"><i class="fab fa-instagram"></i></a>
-            <a href="https://discord.com/users/987684332430835753" class="social-icon discord" title="Discord Profile" target="_blank"><i class="fab fa-discord"></i></a>
-            <a href="mailto:albert07062010@gmail.com" class="social-icon email" title="Email"><i class="fas fa-envelope"></i></a>
-        </div>
-
-        <div class="action-stack">
-            <button class="btn" id="weatherTriggerBtn" onclick="switchInterface(true)">
-                <i class="fas fa-cloud-sun"></i><span>彰化數據同步中...</span>
-            </button>
-            <a href="https://railway.albert07062010.com" class="btn secondary" target="_blank" style="border-color: rgba(255, 255, 255, 0.35);">
-                <svg class="btn-icon" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
-                    <defs>
-                        <!-- 黃黑相間警示條紋圖樣 -->
-                        <pattern id="hazard-stripes" width="5" height="5" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
-                            <rect width="2.5" height="5" fill="#ffd000"/>
-                            <rect x="2.5" width="2.5" height="5" fill="#18181c"/>
-                        </pattern>  
-                        <!-- 頭燈光暈 -->
-                        <radialGradient id="headlight-glow" cx="50%" cy="50%" r="50%">
-                            <stop offset="0%" stop-color="#ffffff" stop-opacity="1"/>
-                            <stop offset="45%" stop-color="#fff8d6" stop-opacity="0.75"/>
-                            <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
-                        </radialGradient>
-                    </defs>
-
-                    <!-- 頭燈光暈 -->
-                    <circle cx="16" cy="4.5" r="4.5" fill="url(#headlight-glow)"/>
-
-                    <!-- 底部排障器與輪軌示意 -->
-                    <rect x="10.5" y="27.5" width="2.2" height="2.5" rx="0.5" fill="#4a4a55"/>
-                    <rect x="19.3" y="27.5" width="2.2" height="2.5" rx="0.5" fill="#4a4a55"/>
-
-                    <!-- 車身主體輪廓 (橘色) -->
-                    <path d="M6.5 9.5 Q16 5.5 25.5 9.5 L26 25.5 L23.5 27.5 L8.5 27.5 L6 25.5 Z" fill="#ff8400"/>
-
-                    <!-- 上半部米白塗裝 -->
-                    <path d="M6.5 9.5 Q16 5.5 25.5 9.5 L25.7 13.5 L6.3 13.5 Z" fill="#f7f5eb"/>
-
-                    <!-- 頭燈本體與尾燈點綴 -->
-                    <circle cx="16" cy="5.5" r="1.4" fill="#ffffff"/>
-                    <circle cx="11.5" cy="7.3" r="0.65" fill="#d94545"/>
-                    <circle cx="20.5" cy="7.3" r="0.65" fill="#d94545"/>
-
-                    <!-- 雙駕駛室車窗 -->
-                    <rect x="7.8" y="8.6" width="7.2" height="3.8" rx="1.2" fill="#323842" stroke="#1e2229" stroke-width="0.6"/>
-                    <rect x="17" y="8.6" width="7.2" height="3.8" rx="1.2" fill="#323842" stroke="#1e2229" stroke-width="0.6"/>
-
-                    <!-- 經典 V 字白色飾帶 -->
-                    <path d="M6.2 14.3 L10 14.3 L16 19.2 L22 14.3 L25.8 14.3 L25.8 15.8 L22.3 15.8 L16 21 L9.7 15.8 L6.2 15.8 Z" fill="#f7f5eb"/>
-
-                    <!-- 車號銘板示意 -->
-                    <rect x="10.2" y="14.2" width="3.2" height="1.3" rx="0.4" fill="#2b2b30"/>
-                    <rect x="18.6" y="14.2" width="3.2" height="1.3" rx="0.4" fill="#2b2b30"/>
-
-                    <!-- 底部黃黑相間警示裙板 -->
-                    <path d="M6.1 22.8 L25.9 22.8 L26 25.5 L23.5 27.5 L8.5 27.5 L6 25.5 Z" fill="url(#hazard-stripes)"/>
-                    
-                    <!-- 中央連結器與底框 -->
-                    <rect x="14.2" y="23.2" width="3.6" height="3.2" rx="0.6" fill="#26262c"/>
-                    <path d="M6.1 22.8 L25.9 22.8" stroke="#cc6600" stroke-width="0.6"/>
-                </svg>
-                <span>ALBERT'S 鐵道攝影 / Railway</span>
-            </a>
-            <a href="https://discord.com/users/987684332430835753" class="btn secondary" target="_blank" style="border-color: rgba(88, 101, 242, 0.4); color: #8c94f4;">
-                <i class="fab fa-discord"></i><span>聯絡我 / Add Discord Friend</span>
-            </a>
-        </div>
-    </div>
-
-    <!-- UI Block 2: Environmental Station Telemetry Board -->
-    <div class="station-weather-board" id="weatherBoard">
-        <div class="board-header">
-            <h2 class="board-title">彰化氣象觀測台</h2>
-            <p class="board-subtitle">Live Meteorological Metrics</p>
-        </div>
-
-        <div class="metrics-vertical-stack">
-            <div class="metric-row">
-                <div class="metric-label"><i class="fas fa-smog"></i> 當前大氣</div>
-                <div class="metric-val" id="w-desc">--</div>
-            </div>
-            <div class="metric-row">
-                <div class="metric-label"><i class="fas fa-thermometer-half"></i> 體感溫度</div>
-                <div class="metric-val" id="w-feel">--°C</div>
-            </div>
-            <div class="metric-row">
-                <div class="metric-label"><i class="fas fa-tint"></i> 相對濕度</div>
-                <div class="metric-val" id="w-humidity">--%</div>
-            </div>
-            <div class="metric-row">
-                <div class="metric-label"><i class="fas fa-wind"></i> 即時風速</div>
-                <div class="metric-val" id="w-wind">-- km/h</div>
-            </div>
-        </div>
-
-        <button class="btn secondary" onclick="switchInterface(false)" style="width: 100%; justify-content: center;">
-            <i class="fas fa-arrow-left"></i><span>返回個人主頁</span>
-        </button>
-    </div>
-
-    <!-- Core Automation Scripts -->
+    <!-- Core Scripts: Live Clock, Weather Telemetry & Responsive Navigation -->
     <script>
-        const canvas = document.getElementById('particleCanvas');
-        const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        let particlesArray = [];
-
-        let currentEnv = {
-            isRainy: false,
-            windSpeed: 1.5
-        };
-
-        window.addEventListener('DOMContentLoaded', () => {
-            setTimeout(() => {
-                document.querySelector('.symmetric-card').classList.add('active');
-            }, 50);
-            fetchWeatherMetrics();
-        });
-
-        // Interface toggle logic
-        function switchInterface(toWeather) {
-            const card = document.querySelector('.symmetric-card');
-            const board = document.getElementById('weatherBoard');
-            
-            if (toWeather) {
-                card.classList.add('hidden-state');
-                setTimeout(() => {
-                    board.classList.add('active');
-                }, 150); 
-            } else {
-                board.classList.remove('active');
-                setTimeout(() => {
-                    card.classList.remove('hidden-state');
-                }, 150);
-            }
+        function toggleMobileNav() {
+            const drawer = document.getElementById('mobileNavDrawer');
+            const btn = document.getElementById('menuToggleBtn');
+            const isOpen = drawer.classList.toggle('open');
+            btn.setAttribute('aria-expanded', String(isOpen));
         }
 
-        // Fetch metrics sequence from live backend endpoint
+        function closeMobileNav() {
+            const drawer = document.getElementById('mobileNavDrawer');
+            const btn = document.getElementById('menuToggleBtn');
+            drawer.classList.remove('open');
+            btn.setAttribute('aria-expanded', 'false');
+        }
+
         async function fetchWeatherMetrics() {
+            const refreshBtn = document.getElementById('refreshWeatherBtn');
+            if (refreshBtn) refreshBtn.disabled = true;
+
             try {
                 const res = await fetch('https://wttr.in/Changhua?format=j1');
-                if (!res.ok) throw new Error();
+                if (!res.ok) throw new Error('Network error');
                 const data = await res.json();
-                
+
                 const condition = data.current_condition[0];
                 const tempC = condition.temp_C;
                 const feelsLike = condition.FeelsLikeC;
                 const humidity = condition.humidity;
                 const speedKmh = condition.windspeedKmph;
                 const weatherDesc = condition.weatherDesc[0].value;
-                
-                currentEnv.windSpeed = Math.max(0.5, parseFloat(speedKmh) / 3.6);
-                if (weatherDesc.toLowerCase().includes('rain') || weatherDesc.toLowerCase().includes('shower')) {
-                    currentEnv.isRainy = true;
-                }
 
-                document.getElementById('w-desc').innerText = weatherDesc;
+                document.getElementById('w-temp').innerText = `${tempC}°C`;
                 document.getElementById('w-feel').innerText = `${feelsLike}°C`;
                 document.getElementById('w-humidity').innerText = `${humidity}%`;
-                document.getElementById('w-wind').innerText = `${speedKmh} km/h`;
-
-                const triggerBtn = document.getElementById('weatherTriggerBtn');
-                const weatherIcon = currentEnv.isRainy ? 'fa-cloud-showers-heavy' : 'fa-cloud-sun';
-                triggerBtn.innerHTML = `<i class="fas ${weatherIcon}"></i><span>彰化市當前氣溫 ${tempC}°C</span>`;
-                
-                init();
+                document.getElementById('w-wind').innerText = `${speedKmh}`;
+                document.getElementById('w-desc').innerText = `彰化市 · ${weatherDesc}`;
+                document.getElementById('heroWeatherChip').innerText = `彰化即時氣象 · ${tempC}°C`;
             } catch (err) {
-                document.getElementById('weatherTriggerBtn').innerHTML = `<i class="fas fa-bolt"></i><span>即時氣象觀測台</span>`;
-                document.getElementById('w-desc').innerText = '數據連線失敗';
+                document.getElementById('w-desc').innerText = '數據連線離線';
+                document.getElementById('heroWeatherChip').innerText = '查看彰化即時氣象';
+            } finally {
+                if (refreshBtn) refreshBtn.disabled = false;
             }
         }
 
-        class Particle {
-            constructor(x, y, size) {
-                this.x = x;
-                this.y = y;
-                this.size = size;
-                this.vx = (Math.random() * 0.4 - 0.2);
-                this.vy = (Math.random() * 0.4 - 0.2);
-                this.alpha = Math.random() * 0.3 + 0.1;
-            }
-
-            draw() {
-                ctx.beginPath();
-                if (currentEnv.isRainy) {
-                    ctx.strokeStyle = `rgba(162, 170, 255, ${this.alpha})`;
-                    ctx.lineWidth = this.size * 0.8;
-                    ctx.moveTo(this.x, this.y);
-                    ctx.lineTo(this.x + (currentEnv.windSpeed * 1.5), this.y + 12);
-                    ctx.stroke();
-                } else {
-                    ctx.fillStyle = `rgba(200, 200, 210, ${this.alpha})`;
-                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                    ctx.fill();
-                }
-            }
-
-            update() {
-                if (currentEnv.isRainy) {
-                    this.y += 8 + (this.size * 2);
-                    this.x += currentEnv.windSpeed * 0.6;
-                    if (this.y > canvas.height) {
-                        this.y = 0;
-                        this.x = Math.random() * canvas.width;
-                    }
-                    if (this.x > canvas.width) this.x = 0;
-                } else {
-                    this.x += this.vx + (currentEnv.windSpeed * 0.1);
-                    this.y += this.vy;
-                    if (this.x > canvas.width) this.x = 0;
-                    if (this.x < 0) this.x = canvas.width;
-                    if (this.y > canvas.height) this.y = 0;
-                    if (this.y < 0) this.y = canvas.height;
-                }
-                this.draw();
-            }
-        }
-
-        function init() {
-            particlesArray = [];
-            let density = currentEnv.isRainy ? 8000 : 12000;
-            let numberOfParticles = (canvas.height * canvas.width) / density;
-            for (let i = 0; i < numberOfParticles; i++) {
-                let size = currentEnv.isRainy ? (Math.random() * 1.5 + 1) : (Math.random() * 1.2 + 0.5);
-                let x = Math.random() * canvas.width;
-                let y = Math.random() * canvas.height;
-                particlesArray.push(new Particle(x, y, size));
-            }
-        }
-
-        function connect() {
-            if (currentEnv.isRainy) return;
-            for (let a = 0; a < particlesArray.length; a++) {
-                for (let b = a + 1; b < particlesArray.length; b++) {
-                    let distance = ((particlesArray[a].x - particlesArray[b].x) * (particlesArray[a].x - particlesArray[b].x)) + 
-                                   ((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y));
-                    
-                    if (distance < (canvas.width / 8) * (canvas.height / 8)) {
-                        ctx.strokeStyle = 'rgba(200, 200, 210, 0.06)';
-                        ctx.lineWidth = 0.8;
-                        ctx.beginPath();
-                        ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
-                        ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
-                        ctx.stroke();
-                    }
-                }
-            }
-        }
-
-        const animate = () => {
-            requestAnimationFrame(animate);
-            ctx.clearRect(0, 0, innerWidth, innerHeight);
-            for (let i = 0; i < particlesArray.length; i++) { particlesArray[i].update(); }
-            connect();
-        }
-
-        window.addEventListener('resize', function() {
-            canvas.width = innerWidth; canvas.height = innerHeight;
-            init();
-        });
-
-        // 即時時間自動更新驅動核心
         function updateLiveClock() {
             const now = new Date();
-            
+
             const hours = String(now.getHours()).padStart(2, '0');
             const minutes = String(now.getMinutes()).padStart(2, '0');
             const seconds = String(now.getSeconds()).padStart(2, '0');
-            document.getElementById('live-clock').innerText = `${hours}:${minutes}:${seconds}`;
-            
+            const timeStr = `${hours}:${minutes}:${seconds}`;
+
+            const liveClock = document.getElementById('live-clock');
+            const navClock = document.getElementById('nav-clock');
+            if (liveClock) liveClock.innerText = timeStr;
+            if (navClock) navClock.innerText = `${hours}:${minutes}`;
+
             const year = now.getFullYear();
             const month = String(now.getMonth() + 1).padStart(2, '0');
             const date = String(now.getDate()).padStart(2, '0');
             const days = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
             const dayOfWeek = days[now.getDay()];
-            
-            document.getElementById('live-date').innerText = `${year} / ${month} / ${date} ${dayOfWeek}`;
+
+            const liveDate = document.getElementById('live-date');
+            if (liveDate) liveDate.innerText = `${year} / ${month} / ${date} ${dayOfWeek}`;
         }
 
-        setInterval(updateLiveClock, 1000);
-        updateLiveClock();
-
-        init(); 
-        animate();
+        window.addEventListener('DOMContentLoaded', () => {
+            updateLiveClock();
+            setInterval(updateLiveClock, 1000);
+            fetchWeatherMetrics();
+        });
     </script>
 </body>
 </html>
